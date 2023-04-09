@@ -46,7 +46,7 @@ This is a web application that creates a website using the MVC framework and a M
 - In a web browser, navigate to https://localhost:5001/ if it does not open automatically.
 
 ## Known Bugs
-None at this time.
+Authorization is not working properly and user cannot add new treat 
 
 ## Project Roadmap
 Future features could include:
