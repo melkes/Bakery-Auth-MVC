@@ -18,7 +18,7 @@ namespace BakeryTreats.Controllers
       public ActionResult Index()
       {
         Flavor[] flavors = _db.Flavors.ToArray();
-        Treats[] treats = _db.Treats.ToArray();
+        Treat[] treats = _db.Treats.ToArray();
         Dictionary<string,object[]> model = new Dictionary<string, object[]>();
         model.Add("flavors", flavors);
         model.Add("treats", treats);

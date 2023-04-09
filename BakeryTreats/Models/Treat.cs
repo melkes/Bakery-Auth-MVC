@@ -11,6 +11,6 @@ namespace BakeryTreats.Models
     [Range(1, int.MaxValue, ErrorMessage = "You must add your treat to a flavor. Have you created a flavor yet?")]
     public int FlavorId { get; set; }
     public Flavor Flavor { get; set; }
-    public List<TreatFlavor> JoinEntities { get;}
+    public List<FlavorTreat> JoinEntities { get;}
   }
 }
