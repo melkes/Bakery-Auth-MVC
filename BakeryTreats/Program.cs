@@ -26,7 +26,7 @@ namespace BakeryTreats
       builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<BakeryTreatsContext>()
                 .AddDefaultTokenProviders();
-
+                
       // single character passwords for use during dev
       builder.Services.Configure<IdentityOptions>(options =>
       {
