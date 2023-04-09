@@ -18,9 +18,9 @@ else
   <ul>
     @foreach (Treat treat in Model)
     {
-      <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId }) | @treat.Flavor.Name</li>
-                @Html.ActionLink("Edit", "Edit", new { id = treat.TreatId }, new {@class = "btn btn-warning"})
-          @Html.ActionLink("Delete", "Delete", new { id = treat.TreatId }, new {@class = "btn btn-danger"})
+      <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+                @Html.ActionLink("Edit", "Edit", new { id = treat.TreatId }, new {@class = "btn btn-warning btn-sm"})
+          @Html.ActionLink("Delete", "Delete", new { id = treat.TreatId }, new {@class = "btn btn-danger btn-sm"})
     }
   </ul>
 }

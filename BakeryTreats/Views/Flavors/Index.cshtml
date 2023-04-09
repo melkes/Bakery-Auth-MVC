@@ -18,9 +18,10 @@
     @foreach (Flavor flavor in Model)
       {
         @Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })
-      
-          @Html.ActionLink("Edit", "Edit", new { id = flavor.FlavorId }, new {@class = "btn btn-warning"})
-          @Html.ActionLink("Delete", "Delete", new { id = flavor.FlavorId }, new {@class = "btn btn-danger"})
+      <br/>
+          @Html.ActionLink("Edit", "Edit", new { id = flavor.FlavorId }, new {@class = "btn btn-warning btn-sm"})
+          @Html.ActionLink("Delete", "Delete", new { id = flavor.FlavorId }, new {@class = "btn btn-danger btn-sm"})
+      <br/>
       }
     }
 

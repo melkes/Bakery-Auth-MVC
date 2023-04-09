@@ -45,7 +45,7 @@ namespace BakeryTreats.Controllers
     {
       if (!ModelState.IsValid)
       {
-        ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+        // ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
         return View(treat);
       }
       else
