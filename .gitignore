@@ -1,0 +1,6 @@
+obj
+bin
+appsettings.json
+launchSettings.json
+.DS_Store
+.vscode
