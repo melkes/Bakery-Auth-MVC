@@ -1,31 +1,29 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using BakeryTreats.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace BakeryTreats.Controllers;
-
-public class HomeController : Controller
+namespace BakeryTreats.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
+      private readonly BakeryTreatsContext _db;
+
+      public HomeController(BakeryTreatsContext db)
+      {
+        _db = db;
+      }
+
+      [HttpGet("/")]
+      public ActionResult Index()
+      {
+        Flavors[] flavors = _db.Flavors.ToArray();
+        Treats[] treats = _db.Treats.ToArray();
+        Dictionary<string,object[]> model = new Dictionary<string, object[]>();
+        model.Add("flavors", flavors);
+        model.Add("treats", treats);
+        return View(model);
+      }
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }
