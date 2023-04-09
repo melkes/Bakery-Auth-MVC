@@ -4,24 +4,34 @@ using Microsoft.AspNetCore.Mvc;
 using BakeryTreats.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace BakeryTreats.Controllers
 {
+  [Authorize]
   public class TreatsController : Controller
   {
     private readonly BakeryTreatsContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public TreatsController(BakeryTreatsContext db)
+    public TreatsController(UserManager<ApplicationUser> userManager, BakeryTreatsContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Treat> model = _db.Treats
-                            .Include(treat => treat.Flavor)
-                            .ToList();
-      return View(model);
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Treat> userTreats = _db.Treats
+                          .Where(entry => entry.User.Id == currentUser.Id)
+                          .Include(treat => treat.Flavor)
+                          .ToList();
+      return View(userTreats);
     }
 
     public ActionResult Create()
@@ -31,15 +41,18 @@ namespace BakeryTreats.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Treat treat)
+    public async Task<ActionResult> Create(Treat treat, int FlavorId)
     {
       if (!ModelState.IsValid)
       {
-          ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
-          return View(treat);
+        ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Name");
+        return View(treat);
       }
       else
       {
+        string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        treat.User = currentUser;
         _db.Treats.Add(treat);
         _db.SaveChanges();
         return RedirectToAction("Index");
@@ -85,6 +98,27 @@ namespace BakeryTreats.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public ActionResult AddFlavor(int id)
+    {
+      Treat thisTreat = _db.Treats.FirstOrDefault(treats => treats.TreatId == id);
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "Title");
+      return View(thisTreat);
+    }
+
+    [HttpPost]
+    public ActionResult AddFlavor(Treat treat, int flavorId)
+    {
+      #nullable enable
+      FlavorTreat? joinEntity = _db.FlavorTreats.FirstOrDefault(join => (join.FlavorId == flavorId && join.TreatId == treat.TreatId));
+      #nullable disable
+      if (joinEntity == null && flavorId != 0)
+      {
+        _db.FlavorTreats.Add(new FlavorTreat() { FlavorId = flavorId, TreatId = treat.TreatId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }   
 
     [HttpPost]
     public ActionResult DeleteJoin(int joinId)
