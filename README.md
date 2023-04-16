@@ -17,12 +17,6 @@ This is a web application that creates a website using the MVC framework and a M
 
 ## Setup instructions
 - Clone this repository and open in VS Code
-- Create a .gitignore file in the project folder with the contents:<br>
-  `obj`<br>
-  `bin`<br>
-  `appsettings.json`<br>
-  `launchSettings.json`<br>
-  `.DS_Store`<br>
 
 - Navigate to the BakeryTreats directory
 - Create an appsettings.json file with the following contents, replacing the values inside brackets [] with your own:
