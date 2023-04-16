@@ -27,3 +27,24 @@ else
 <p>@Html.ActionLink("Add new treat", "Create")</p>
 <p>@Html.ActionLink("Home", "Index", "Home")</p>
 </div>
+
+@* 
+@if (User.Identity.IsAuthenticated)
+{
+  <h4>Treats for @User.Identity.Name</h4>
+  @if (Model["treats"].Length == 0)
+  {
+    <p>No items have been added yet!</p>
+  } 
+  <ul>
+    @foreach (Treat treat in Model["treats"])
+    {
+      <li>@Html.ActionLink(@treat.Name, "Details", "Treats", new { id = @treat.TreatId})</li>
+    }
+  </ul>
+}
+else
+{
+  <h4>Items</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your items.</p>
+} *@

@@ -1,21 +1,60 @@
 @{
+    ViewData["Title"] = "Create";
+}
+@{
   Layout = "_Layout";
 }
 
 @model BakeryTreats.Models.Treat
 
-<h4>Add a new Treat</h4>
+<h2>Add a new Treat</h2>
 
 <p>Go to @Html.ActionLink("this page", "Create", "Flavors") to add a Flavor.</p>
+<div class="row">
+  <div class="col-md-4">
+    <form asp-action="Create">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="FlavorId" class="control-label">Flavor</label>
+            <select for="FlavorId" class="form-control">
+                <option value="">--Select a Flavor--</option>
+                  @foreach (var flavor in ViewBag.Flavors)
+                  {
+                      <option value="@flavor.Id">@flavor.Name</option>
+                  }
+            </select>
+            <span for="FlavorId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+              <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </form>
+  </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 
-@using (Html.BeginForm())
-{
-  @Html.LabelFor(model => model.Name)
-  @Html.TextBoxFor(model => model.Name)
-  
-  @* @Html.LabelFor(model => model.Description)
-  @Html.TextBoxFor(model => model.Description) *@
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@
 
-  <input type="submit" value="Add Treat" class="btn btn-outline-primary" />
-}
 <p>@Html.ActionLink("Show all Treats", "Index")</p>
+
+<hr>
+
+
+  
+  @* <h2>Create New Treat</h2>
+  <form action="Create" class="form-group">
+    <label>Name:</label>
+    <input type="text" class="form-control" name="name">
+    <label>Flavor Id:</label>
+    <select asp-for="FlavorId" asp-items="ViewBag.FlavorId" class="form-control"></select>
+    <input type="submit" class="btn btn-primary" value="Create">
+  </form> *@

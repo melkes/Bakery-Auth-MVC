@@ -55,7 +55,7 @@ namespace BakeryTreats.Controllers
       }
     }
 
-        public ActionResult Login()
+    public ActionResult Login()
     {
       return View();
     }

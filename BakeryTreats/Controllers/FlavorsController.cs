@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace BakeryTreats.Controllers
 {
+  
   public class FlavorsController : Controller
   {
     private readonly BakeryTreatsContext _db;
@@ -37,12 +38,17 @@ namespace BakeryTreats.Controllers
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors
-        .Include(flavors => flavors.Treats)
-        .ThenInclude(treat => treat.JoinEntities)
+        .Include(flavors => flavors.JoinEntities)
+        .ThenInclude(join => join.Treat)
         .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
-
+      // previous broken code:
+      //      Flavor thisFlavor = _db.Flavors
+      //   .Include(flavors => flavors.Treats)
+      //   .ThenInclude(treat => treat.JoinEntities)
+      //   .FirstOrDefault(flavor => flavor.FlavorId == id);
+      // return View(thisFlavor);
     public ActionResult Edit(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
