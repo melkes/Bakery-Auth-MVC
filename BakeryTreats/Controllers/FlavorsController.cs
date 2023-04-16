@@ -51,12 +51,7 @@ namespace BakeryTreats.Controllers
         .FirstOrDefault(flavor => flavor.FlavorId == id);
       return View(thisFlavor);
     }
-      // previous broken code:
-      //      Flavor thisFlavor = _db.Flavors
-      //   .Include(flavors => flavors.Treats)
-      //   .ThenInclude(treat => treat.JoinEntities)
-      //   .FirstOrDefault(flavor => flavor.FlavorId == id);
-      // return View(thisFlavor);
+
     public ActionResult Edit(int id)
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);

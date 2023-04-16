@@ -59,19 +59,7 @@ namespace BakeryTreats.Controllers
         return RedirectToAction("Index");
       }
     }
-//prev broken version:
-  //  else
-  //     {
-  //       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-  //       ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
-  //       treat.Flavor = _db.Flavors
-  //         .FirstOrDefault(flavor => flavor.FlavorId == FlavorId);
-  //       treat.User = currentUser;
-  //       _db.Treats.Add(treat);
-  //       _db.SaveChanges();
-  //       return RedirectToAction("Index");
-        
-  //     }
+
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats
