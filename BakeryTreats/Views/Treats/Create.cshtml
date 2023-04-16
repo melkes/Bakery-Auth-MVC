@@ -23,9 +23,9 @@
             <label for="FlavorId" class="control-label">Flavor</label>
             <select for="FlavorId" class="form-control">
                 <option value="">--Select a Flavor--</option>
-                  @foreach (var flavor in ViewBag.Flavors)
+                  @foreach (var flavor in ViewBag.FlavorId)
                   {
-                      <option value="@flavor.Id">@flavor.Name</option>
+                      <option value="@flavor.Value">@flavor.Text</option>
                   }
             </select>
             <span for="FlavorId" class="text-danger"></span>
