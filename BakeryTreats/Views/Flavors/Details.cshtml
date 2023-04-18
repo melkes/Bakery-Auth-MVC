@@ -31,6 +31,7 @@ else
     }
   </ul>
 }
+<p>@Html.ActionLink("Add a Treat", "AddTreat", new { id = Model.FlavorId },  new {@class="text-primary"})</p>
 <hr>
 <p>@Html.ActionLink("Edit Name", "Edit", new { id = Model.FlavorId })</p>
 <p>@Html.ActionLink("Delete this Flavor", "Delete", new { id = Model.FlavorId }, new {@class="text-danger"})</p>
